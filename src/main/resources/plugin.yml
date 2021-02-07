@@ -1,0 +1,6 @@
+name: CrazyOcelot
+version: @version@
+main: me.wani4ka.crazyocelot.CrazyOcelotPlugin
+api-version: 1.13
+authors: [ Wani4ka ]
+description: Rozwiązanie zadania przykładowego dla DiamondWorldu
