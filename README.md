@@ -4,6 +4,7 @@ Jego autor nie ponosi żadnej odpowiedzialności za jego pracę i nie będzie ut
 
 > Można pobrać dodatek [**tutaj**](https://github.com/Wani4ka/CrazyOcelot/releases).
 > Wymagana wersja serwera to [**1.13.2**](https://cdn.getbukkit.org/spigot/spigot-1.13.2.jar).
+> Wymagany jest również dodatek [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/).
 
 ## Spis zadań
 - [x] 1.  Po zabiciu zombie na jego miejscu pojawia się ocelot.
