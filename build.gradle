@@ -40,10 +40,3 @@ task copyJar(type: Copy) {
     from jar
     into 'server/plugins'
 }
-task sendToServer {
-    dependsOn 'clean'
-    dependsOn 'jar'
-    dependsOn 'copyJar'
-    tasks.findByName('jar').mustRunAfter 'clean'
-    tasks.findByName('copyJar').mustRunAfter 'build'
-}
