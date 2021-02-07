@@ -18,7 +18,7 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Gradle
-      run: gradle build
+      run: gradle jar
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
@@ -26,4 +26,4 @@ jobs:
         prerelease: false
         title: "Latest version"
         files: |
-          *.jar
+          build/libs/*.jar
