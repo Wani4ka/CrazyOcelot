@@ -7,7 +7,7 @@ Wymagana wersja serwera to [**1.13.2**](https://cdn.getbukkit.org/spigot/spigot-
 ## Spis zadań
 - [x] 1.  Po zabiciu zombie na jego miejscu pojawia się ocelot.
 - [x] 2.  Nazwa ocelota składa się z 5 losowych znaków (liter różnej wielkości liter i cyfr).
-- [ ] 3.  Po zabiciu tego ocelota przez gracza do bazy danych wprowadzany jest zapis takiej treści:
+- [x] 3.  Po zabiciu tego ocelota przez gracza do bazy danych wprowadzany jest zapis takiej treści:
   
     | Nick gracza    | Imię ocelotu | Czas zabijania |
     | :------------- | :----------- | :------------- |

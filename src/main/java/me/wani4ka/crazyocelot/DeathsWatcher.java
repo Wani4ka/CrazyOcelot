@@ -2,6 +2,8 @@ package me.wani4ka.crazyocelot;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
+import me.wani4ka.crazyocelot.ocelot.EntityCrazyOcelot;
+import org.bukkit.craftbukkit.v1_13_R2.entity.CraftEntity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Ocelot;
 import org.bukkit.entity.Zombie;
@@ -23,6 +25,18 @@ public class DeathsWatcher implements Listener {
 			if (((Zombie) e.getEntity()).isBaby() && ocelot != null)
 				((Ocelot) ocelot).setBaby();
 		}
+	}
+
+	@EventHandler
+	public void onOcelotDied(EntityDeathEvent e) {
+		if (!(((CraftEntity) e.getEntity()).getHandle() instanceof EntityCrazyOcelot)) return;
+		// napisz śmierć do loggera
+		val killer = e.getEntity().getKiller();
+		if (killer == null) return;
+		plugin.getKillLogger().logKill(killer, e.getEntity().getCustomName());
+		// TODO: upuść skórę
+		e.setDroppedExp(0);
+		e.getDrops().clear();
 	}
 
 }

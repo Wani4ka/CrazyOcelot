@@ -2,6 +2,7 @@ package me.wani4ka.crazyocelot;
 
 import com.mojang.datafixers.DataFixUtils;
 import com.mojang.datafixers.types.Type;
+import lombok.Getter;
 import lombok.val;
 import me.wani4ka.crazyocelot.ocelot.EntityCrazyOcelot;
 import net.minecraft.server.v1_13_R2.*;
@@ -11,12 +12,16 @@ import org.bukkit.entity.Entity;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.Map;
 import java.util.function.Function;
 
 public final class CrazyOcelotPlugin extends JavaPlugin implements Listener {
 
 	public static EntityTypes<EntityCrazyOcelot> CRAZY_OCELOT;
+
+	@Getter
+	private OcelotKillLogger killLogger;
 
 	@Override
 	public void onLoad() {
@@ -25,7 +30,15 @@ public final class CrazyOcelotPlugin extends JavaPlugin implements Listener {
 
 	@Override
 	public void onEnable() {
+		if (!getDataFolder().exists())
+			getDataFolder().mkdir();
+		killLogger = new OcelotKillLogger(this, new File(getDataFolder(), "kills.db").getPath());
 		getServer().getPluginManager().registerEvents(new DeathsWatcher(this), this);
+	}
+
+	@Override
+	public void onDisable() {
+		killLogger.close();
 	}
 
 	public Entity spawnOcelot(Location loc) {
