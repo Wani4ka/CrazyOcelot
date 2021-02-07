@@ -1,8 +1,9 @@
 # CrazyOcelot
-Ten podłącz Minecraftowy jest rozwiązaniem zadania przykładowego dla projektu DiamondWorld.
+Ten dodatek Minecraftowy jest rozwiązaniem zadania przykładowego dla projektu DiamondWorld.
 Jego autor nie ponosi żadnej odpowiedzialności za jego pracę i nie będzie utrzymał go w przyszłości.
 
-Wymagana wersja serwera to [**1.13.2**](https://cdn.getbukkit.org/spigot/spigot-1.13.2.jar).
+> Można pobrać dodatek [**tutaj**](https://github.com/Wani4ka/CrazyOcelot/releases).
+> Wymagana wersja serwera to [**1.13.2**](https://cdn.getbukkit.org/spigot/spigot-1.13.2.jar).
 
 ## Spis zadań
 - [x] 1.  Po zabiciu zombie na jego miejscu pojawia się ocelot.
@@ -14,6 +15,6 @@ Wymagana wersja serwera to [**1.13.2**](https://cdn.getbukkit.org/spigot/spigot-
 
     SQLite jest używany jako baza danych.
 - [x] 4. Ocelot nie ucieka przed graczem, ale go atakuje.
-- [ ] 5. Po zabiciu ocelota spada z niego jedna skórka, nad którą pojawi się nick gracza.
+- [x] 5. Po zabiciu ocelota spada z niego jedna skórka, nad którą pojawi się nick gracza.
     Dla każdego patrzączego gracza nick widoczny nick jest swój. 
          Na przykład, jeżeli na skórką patrzy Wani4ka, on widzi "Wani4ka", a jeżeli NiaszMiasz99, to "NiaszMiasz99".

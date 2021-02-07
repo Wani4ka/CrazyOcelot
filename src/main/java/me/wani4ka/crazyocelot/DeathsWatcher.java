@@ -2,7 +2,7 @@ package me.wani4ka.crazyocelot;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
-import me.wani4ka.crazyocelot.ocelot.EntityCrazyOcelot;
+import me.wani4ka.crazyocelot.entities.EntityCrazyOcelot;
 import org.bukkit.craftbukkit.v1_13_R2.entity.CraftEntity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Ocelot;
@@ -21,7 +21,7 @@ public class DeathsWatcher implements Listener {
 		if (e.getEntityType() != EntityType.ZOMBIE) return;
 		val killer = e.getEntity().getKiller();
 		if (killer != null) {
-			val ocelot = plugin.spawnOcelot(e.getEntity().getLocation());
+			val ocelot = plugin.getCustomEntities().spawn("crazy_ocelot", e.getEntity().getLocation());
 			if (((Zombie) e.getEntity()).isBaby() && ocelot != null)
 				((Ocelot) ocelot).setBaby();
 		}
@@ -30,13 +30,12 @@ public class DeathsWatcher implements Listener {
 	@EventHandler
 	public void onOcelotDied(EntityDeathEvent e) {
 		if (!(((CraftEntity) e.getEntity()).getHandle() instanceof EntityCrazyOcelot)) return;
-		// napisz śmierć do loggera
-		val killer = e.getEntity().getKiller();
-		if (killer == null) return;
-		plugin.getKillLogger().logKill(killer, e.getEntity().getCustomName());
-		// TODO: upuść skórę
 		e.setDroppedExp(0);
 		e.getDrops().clear();
+		plugin.getCustomEntities().spawn("ocelot_leather", e.getEntity().getLocation());
+		val killer = e.getEntity().getKiller();
+		if (killer != null)
+			plugin.getKillLogger().logKill(killer, e.getEntity().getCustomName());
 	}
 
 }

@@ -1,10 +1,12 @@
-package me.wani4ka.crazyocelot.ocelot;
+package me.wani4ka.crazyocelot.entities;
 
+import lombok.val;
 import me.wani4ka.crazyocelot.Utils;
 import net.minecraft.server.v1_13_R2.*;
 
 import javax.annotation.Nullable;
 
+@CustomEntity(name = "crazy_ocelot", parent = "ocelot")
 public class EntityCrazyOcelot extends EntityOcelot {
 	public EntityCrazyOcelot(World world) {
 		super(world);
@@ -30,13 +32,41 @@ public class EntityCrazyOcelot extends EntityOcelot {
 	}
 
 	@Override
-	protected void dz() {
-		// zapobiegaj ucieczce od gracza
-	}
+	protected void dz() { } // zapobiegaj ucieczce od gracza
 
 	@Nullable
 	@Override
 	public GroupDataEntity prepare(DifficultyDamageScaler difficultydamagescaler, @Nullable GroupDataEntity groupdataentity, @Nullable NBTTagCompound nbttagcompound) {
 		return groupdataentity; // zapobiegaj pojawianiu się kilku ocelotów
+	}
+
+	public static class PathfinderGoalCrazyOcelotAttack extends PathfinderGoalOcelotAttack {
+
+		private final EntityInsentient b;
+
+		public PathfinderGoalCrazyOcelotAttack(EntityInsentient var0) {
+			super(var0);
+			this.b = var0;
+		}
+
+		// prawie skopiowany kod z PathfinderGoalOcelotAttack#e
+		@Override
+		public void e() {
+			val c = (EntityLiving) Utils.getField(PathfinderGoalOcelotAttack.class, this, "c");
+			int d = (int) Utils.getField(PathfinderGoalOcelotAttack.class, this, "d");
+
+			b.getControllerLook().a(c, 30.0f, 30.0f);
+			double var0 = b.width * 2.0f * (b.width * 2.0f);
+			double var2 = b.d(c.locX, c.getBoundingBox().minY, c.locZ);
+			double var4 = 0.8;
+			if (var2 > var0 && var2 < 255.0)
+				var4 = 1.33;
+			b.getNavigation().a(c, var4);
+			d = Math.max(d - 1, 0);
+			Utils.setField(PathfinderGoalOcelotAttack.class, this, "d", d);
+			if (var2 > var0 || d > 0) return;
+			Utils.setField(PathfinderGoalOcelotAttack.class, this, "d", 20);
+			b.B(c);
+		}
 	}
 }
