@@ -3,7 +3,8 @@ package me.wani4ka.crazyocelot;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import me.wani4ka.crazyocelot.entities.EntityCrazyOcelot;
-import org.bukkit.craftbukkit.v1_13_R2.entity.CraftEntity;
+import me.wani4ka.crazyocelot.entities.EntityOcelotLeather;
+import me.wani4ka.crazyocelot.util.CustomEntities;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Ocelot;
 import org.bukkit.entity.Zombie;
@@ -20,19 +21,20 @@ public class DeathsWatcher implements Listener {
 	public void onZombieDied(EntityDeathEvent e) {
 		if (e.getEntityType() != EntityType.ZOMBIE) return;
 		val killer = e.getEntity().getKiller();
-		if (killer != null) {
-			val ocelot = plugin.getCustomEntities().spawn("crazy_ocelot", e.getEntity().getLocation());
-			if (((Zombie) e.getEntity()).isBaby() && ocelot != null)
-				((Ocelot) ocelot).setBaby();
-		}
+		if (killer == null) return;
+		val loc = e.getEntity().getLocation();
+		val ocelot = CustomEntities.spawn(new EntityCrazyOcelot(loc.getWorld()), loc);
+		if (((Zombie) e.getEntity()).isBaby() && ocelot != null)
+			((Ocelot) ocelot).setBaby();
 	}
 
 	@EventHandler
 	public void onOcelotDied(EntityDeathEvent e) {
-		if (!(((CraftEntity) e.getEntity()).getHandle() instanceof EntityCrazyOcelot)) return;
+		if (!CustomEntities.isInstanceOf(e.getEntity(), EntityCrazyOcelot.class)) return;
 		e.setDroppedExp(0);
 		e.getDrops().clear();
-		plugin.getCustomEntities().spawn("ocelot_leather", e.getEntity().getLocation());
+		val loc = e.getEntity().getLocation();
+		CustomEntities.spawn(new EntityOcelotLeather(loc.getWorld(), loc.getX(), loc.getY(), loc.getZ()));
 		val killer = e.getEntity().getKiller();
 		if (killer != null)
 			plugin.getKillLogger().logKill(killer, e.getEntity().getCustomName());

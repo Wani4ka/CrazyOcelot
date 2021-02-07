@@ -1,16 +1,19 @@
 package me.wani4ka.crazyocelot.entities;
 
 import lombok.val;
-import me.wani4ka.crazyocelot.Utils;
+import me.wani4ka.crazyocelot.util.Utils;
 import net.minecraft.server.v1_13_R2.*;
+import org.bukkit.craftbukkit.v1_13_R2.CraftWorld;
 
 import javax.annotation.Nullable;
 
-@CustomEntity(name = "crazy_ocelot", parent = "ocelot")
 public class EntityCrazyOcelot extends EntityOcelot {
 	public EntityCrazyOcelot(World world) {
 		super(world);
 		setCustomName(new ChatComponentText(Utils.randomString(5)));
+	}
+	public EntityCrazyOcelot(org.bukkit.World world) {
+		this(((CraftWorld) world).getHandle());
 	}
 
 	@Override

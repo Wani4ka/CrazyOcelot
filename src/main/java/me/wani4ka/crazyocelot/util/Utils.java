@@ -1,4 +1,4 @@
-package me.wani4ka.crazyocelot;
+package me.wani4ka.crazyocelot.util;
 
 import lombok.val;
 
