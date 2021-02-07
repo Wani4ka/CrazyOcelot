@@ -5,6 +5,7 @@ import lombok.val;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 
 @RequiredArgsConstructor
@@ -16,7 +17,8 @@ public class DeathsWatcher implements Listener {
 	public void onZombieDied(EntityDeathEvent e) {
 		if (e.getEntityType() != EntityType.ZOMBIE) return;
 		val lastDmg = e.getEntity().getLastDamageCause();
-		if (lastDmg != null && lastDmg.getEntityType() == EntityType.PLAYER)
+		if (!(lastDmg instanceof EntityDamageByEntityEvent)) return;
+		if (((EntityDamageByEntityEvent) lastDmg).getDamager().getType() == EntityType.PLAYER)
 			plugin.spawnOcelot(e.getEntity().getLocation());
 	}
 
